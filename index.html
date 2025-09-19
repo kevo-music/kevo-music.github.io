@@ -1,194 +1,244 @@
-<!DOCTYPE html>
+<!-- Restored format of first draft with manifesto woven into hero intro, mint-accent aesthetic -->
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kévo — Pulse</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kévo — Music & Mood</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <meta name="description" content="Kévo — immersive music, visuals and stories." />
   <style>
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', sans-serif;
-      background: #0d0d0d;
-      color: #f4f4f4;
-      overflow-x: hidden;
+    :root{
+      --bg:#050606;
+      --paper:#0e0f10;
+      --muted:#a3b0b0;
+      --accent:#4ade80; /* mint */
+      --glass: rgba(255,255,255,0.04);
+      --radius:18px;
+      --max-width:1100px;
+      --fs-large:clamp(2rem, 5vw, 4rem);
+      color-scheme: dark;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#000 120%);
+      color:#f2f7f7;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      font-size:16px;
     }
 
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1.5rem 2rem;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(8px);
-      z-index: 10;
+    .wrap{max-width:var(--max-width);margin:0 auto;padding:32px}
+    header{position:fixed;left:0;right:0;top:0;z-index:50;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;backdrop-filter: blur(6px);}
+    .brand{font-weight:800;letter-spacing:0.5px;font-size:1.05rem}
+    nav a{color:var(--muted);text-decoration:none;margin-left:18px;font-weight:500}
+    nav a:hover{color:var(--accent)}
+
+    .hero{min-height:100vh;display:grid;align-items:center;position:relative;padding:120px 0 80px}
+    .hero-inner{max-width:720px}
+    .headline{font-size:var(--fs-large);margin:0 0 18px;line-height:0.95;color:var(--accent)}
+    .tag{color:var(--muted);margin-bottom:24px;font-size:1.1rem}
+    .small{font-size:0.95rem;color:var(--muted)}
+    .cta{display:flex;gap:12px;margin-top:22px}
+    .btn{background:linear-gradient(90deg,var(--accent),#34d399);border:none;padding:10px 16px;border-radius:12px;font-weight:600;cursor:pointer;color:black}
+
+    .player{background:var(--paper);padding:24px;border-radius:14px;box-shadow:0 6px 24px rgba(0,0,0,0.4);margin-top:60px}
+    .cover{height:220px;border-radius:10px;overflow:hidden;background:linear-gradient(120deg,#0d1411,#15201c);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.08);font-size:3rem}
+    .tracklist{margin-top:12px}
+    .track{display:flex;align-items:center;gap:12px;padding:10px;border-radius:10px;cursor:pointer}
+    .track:hover{background:linear-gradient(90deg, rgba(74,222,128,0.15), transparent)}
+    .track .meta{font-size:0.95rem}
+
+    section{padding:72px 0}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+    .card{background:var(--glass);padding:18px;border-radius:14px}
+
+    .mosaic{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
+    .mosaic img{width:100%;height:160px;object-fit:cover;border-radius:10px;transition:transform 0.4s ease}
+    .mosaic img:hover{transform:scale(1.05)}
+
+    .shows li{margin-bottom:10px}
+
+    footer{padding:40px 0;color:var(--muted);font-size:0.95rem}
+
+    #bg-canvas{position:fixed;right:-10%;top:-10%;width:140vmax;height:140vmax;z-index:-1;pointer-events:none;filter:blur(48px);opacity:0.5}
+
+    @media (max-width:880px){
+      .hero{padding-top:100px}
+      .cover{height:180px}
+      .mosaic img{height:120px}
     }
 
-    header h1 {
-      font-size: 1.5rem;
-      color: #6ee7b7;
-      letter-spacing: 2px;
-    }
-
-    nav a {
-      margin-left: 1.5rem;
-      color: #f4f4f4;
-      text-decoration: none;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: #6ee7b7;
-      text-shadow: 0 0 8px #6ee7b7;
-    }
-
-    .hero {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      text-align: center;
-      padding: 2rem;
-      background: linear-gradient(135deg, rgba(10,10,10,0.8), rgba(20,20,20,0.9));
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero h2 {
-      font-size: 3rem;
-      color: #6ee7b7;
-    }
-
-    .hero p {
-      margin-top: 1rem;
-      max-width: 600px;
-      font-size: 1.2rem;
-      color: #f4f4f4;
-    }
-
-    .manifesto {
-      padding: 4rem 2rem;
-      background: #111;
-      text-align: center;
-    }
-
-    .manifesto p {
-      font-size: 1.3rem;
-      line-height: 1.8;
-      max-width: 700px;
-      margin: 0 auto;
-      color: #f4f4f4;
-      font-style: italic;
-    }
-
-    .music {
-      padding: 4rem 2rem;
-      background: #0d0d0d;
-      text-align: center;
-    }
-
-    .music h3 {
-      color: #6ee7b7;
-      font-size: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .player {
-      background: #1a1a1a;
-      padding: 2rem;
-      border-radius: 16px;
-      display: inline-block;
-      box-shadow: 0 0 20px rgba(110,231,183,0.3);
-      border: 1px solid rgba(110,231,183,0.4);
-    }
-
-    .gallery {
-      padding: 4rem 2rem;
-      background: #111;
-      text-align: center;
-    }
-
-    .gallery h3 {
-      color: #6ee7b7;
-      font-size: 2rem;
-      margin-bottom: 2rem;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-    }
-
-    .gallery img {
-      width: 100%;
-      border-radius: 12px;
-      border: 2px solid rgba(110,231,183,0.5);
-      box-shadow: 0 0 15px rgba(110,231,183,0.4);
-      transition: transform 0.3s ease;
-    }
-
-    .gallery img:hover {
-      transform: scale(1.05);
-    }
-
-    footer {
-      padding: 2rem;
-      text-align: center;
-      background: #0d0d0d;
-      font-size: 0.9rem;
-      color: #f4f4f4;
-    }
+    a:focus, button:focus {outline:2px solid rgba(74,222,128,0.4);outline-offset:2px}
   </style>
 </head>
 <body>
-  <header>
-    <h1>Kévo</h1>
-    <nav>
-      <a href="#pulse">Pulse</a>
-      <a href="#sound">Sound</a>
-      <a href="#visions">Visions</a>
-      <a href="#stage">Stage</a>
-      <a href="#reach">Reach</a>
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <header class="wrap" role="banner">
+    <div class="brand">Kévo</div>
+    <nav aria-label="Main navigation">
+      <a href="#music">Sound</a>
+      <a href="#gallery">Visions</a>
+      <a href="#shows">Nights</a>
+      <a href="#contact">Reach</a>
     </nav>
   </header>
 
-  <section class="hero" id="pulse">
-    <h2>music in motion</h2>
-    <p>songs for boys who love boys, for nights that ache, for silences that glow soft.</p>
-  </section>
+  <main>
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <h1 id="hero-title" class="headline">Kévo</h1>
+        <p class="tag">music for boys who love boys • nights of quiet chaos</p>
+        <p class="small">My songs are shades of red: sometimes a bruise, sometimes a kiss. They linger in the space between silence and longing, made for those I’ve held and those who’ve slipped away.</p>
+        <div class="cta">
+          <button class="btn" id="play-all">Play latest</button>
+          <a class="btn" href="#music">Explore</a>
+        </div>
+      </div>
+    </section>
 
-  <section class="manifesto">
-    <p>
-      I am Kévo. My songs are color: sometimes a bruise, sometimes a kiss.<br />
-      They are made of longing, of heat, of soft hands reaching through the dark.<br />
-      I write for the boys I've loved, the ones who held me, the ones who left.<br />
-      This music is my pulse. Let it become yours too.
-    </p>
-  </section>
+    <section id="music" class="wrap">
+      <aside class="player" aria-label="Now playing">
+        <div class="cover" id="cover">Ké</div>
+        <div class="tracklist" id="tracklist">
+          <div class="track" data-src="tracks/track1.mp3">
+            <div class="meta">Night Drive <div class="small">(3:42)</div></div>
+          </div>
+          <div class="track" data-src="tracks/track2.mp3">
+            <div class="meta">Soft Static <div class="small">(4:06)</div></div>
+          </div>
+          <div class="track" data-src="tracks/track3.mp3">
+            <div class="meta">After the Shows <div class="small">(2:58)</div></div>
+          </div>
+        </div>
 
-  <section class="music" id="sound">
-    <h3>Sound</h3>
-    <div class="player">
-      <!-- Placeholder player -->
-      <p>Player embed coming soon...</p>
+        <div style="margin-top:14px">
+          <audio id="audio" preload="none" controls style="width:100%">
+            <source src="tracks/track1.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+      </aside>
+    </section>
+
+    <section id="gallery" class="wrap">
+      <h2>Visions</h2>
+      <div class="mosaic" style="margin-top:18px">
+        <img src="https://picsum.photos/800/600?random=21" alt="Abstract visual 1">
+        <img src="https://picsum.photos/800/600?random=22" alt="Abstract visual 2">
+        <img src="https://picsum.photos/800/600?random=23" alt="Abstract visual 3">
+        <img src="https://picsum.photos/800/600?random=24" alt="Abstract visual 4">
+        <img src="https://picsum.photos/800/600?random=25" alt="Abstract visual 5">
+        <img src="https://picsum.photos/800/600?random=26" alt="Abstract visual 6">
+      </div>
+    </section>
+
+    <section id="shows" class="wrap">
+      <h2>Nights</h2>
+      <ul class="shows" style="margin-top:12px">
+        <li><strong>Oct 10, 2025</strong> — The Blue Room, Halifax — <a href="#">Tickets</a></li>
+        <li><strong>Nov 6, 2025</strong> — Smalltown Fest, Toronto — <a href="#">Details</a></li>
+      </ul>
+    </section>
+
+    <section id="contact" class="wrap">
+      <h2>Reach</h2>
+      <div class="grid" style="align-items:start;">
+        <div>
+          <p class="small">For bookings & press: <a href="mailto:kevo@example.com">kevo@example.com</a></p>
+          <p class="small">Follow: <a href="#">Spotify</a> · <a href="#">Instagram</a> · <a href="#">YouTube</a></p>
+        </div>
+        <div>
+          <form onsubmit="return newsletterSubmit(event)">
+            <label class="small">Join the notes — newsletter</label>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <input id="email" type="email" placeholder="you@email.com" required style="flex:1;padding:8px;border-radius:10px;border:none;background:rgba(255,255,255,0.05);color:inherit">
+              <button class="btn">Join</button>
+            </div>
+            <div id="nl-msg" class="small" style="margin-top:8px;color:var(--muted)"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap">
+      <div class="small">© Kévo • All rights reserved</div>
+      <div class="small">Designed for mood, built for sound.</div>
     </div>
-  </section>
-
-  <section class="gallery" id="visions">
-    <h3>Visions</h3>
-    <div class="gallery-grid">
-      <img src="https://via.placeholder.com/400x300/6ee7b7/ffffff?text=Vision+1" alt="Vision 1">
-      <img src="https://via.placeholder.com/400x300/6ee7b7/ffffff?text=Vision+2" alt="Vision 2">
-      <img src="https://via.placeholder.com/400x300/6ee7b7/ffffff?text=Vision+3" alt="Vision 3">
-    </div>
-  </section>
-
-  <footer>
-    <p>© 2025 Kévo — All rights reserved.</p>
   </footer>
+
+  <script>
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    function resize(){canvas.width = window.innerWidth * 1.4; canvas.height = window.innerHeight * 1.4}
+    resize(); window.addEventListener('resize', resize);
+
+    const blobs = [];
+    function rand(min,max){return Math.random()*(max-min)+min}
+    for(let i=0;i<4;i++){
+      blobs.push({x:rand(0,canvas.width),y:rand(0,canvas.height),r:rand(200,520),dx:rand(-0.3,0.3),dy:rand(-0.3,0.3),h:rand(120,180)})
+    }
+    function draw(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for(const b of blobs){
+        b.x += b.dx; b.y += b.dy;
+        if(b.x<-b.r) b.x = canvas.width + b.r; if(b.x>canvas.width+b.r) b.x = -b.r;
+        if(b.y<-b.r) b.y = canvas.height + b.r; if(b.y>canvas.height+b.r) b.y = -b.r;
+
+        const g = ctx.createRadialGradient(b.x,b.y,b.r*0.1,b.x,b.y,b.r);
+        g.addColorStop(0, `hsla(${b.h},60%,55%,0.16)`);
+        g.addColorStop(0.4, `hsla(${b.h+20},60%,45%,0.08)`);
+        g.addColorStop(1, `hsla(${b.h+40},60%,30%,0)`);
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,Math.PI*2); ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    const tracks = Array.from(document.querySelectorAll('.track'));
+    const audio = document.getElementById('audio');
+    const cover = document.getElementById('cover');
+
+    tracks.forEach(t=>{
+      t.addEventListener('click', ()=>{
+        const src = t.dataset.src;
+        if(!src) return;
+        audio.querySelectorAll('source').forEach(s=>s.src = src);
+        audio.load();
+        audio.play();
+        cover.textContent = t.querySelector('.meta').innerText.split('\n')[0] || 'Kévo';
+      })
+    });
+
+    document.getElementById('play-all').addEventListener('click', ()=>{
+      if(tracks[0]) tracks[0].click();
+    });
+
+    function newsletterSubmit(e){
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const msg = document.getElementById('nl-msg');
+      msg.textContent = `Thanks — connect this form to your newsletter provider. For now: mailto:kevo@example.com?subject=Subscribe&body=${encodeURIComponent(email)}`;
+      return false;
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        e.preventDefault();
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
+      })
+    });
+  </script>
 </body>
 </html>
