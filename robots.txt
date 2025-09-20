@@ -1,0 +1,9 @@
+# Kévo robots.txt
+User-agent: *
+Allow: /
+
+# Prevent indexing of legacy drafts
+Disallow: /old/
+
+# Update the domain after deployment
+Sitemap: https://kevo.example/sitemap.xml

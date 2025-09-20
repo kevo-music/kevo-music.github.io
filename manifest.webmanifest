@@ -1,0 +1,12 @@
+{
+  "name": "Kévo — Music & Mood",
+  "short_name": "Kévo",
+  "description": "Kévo — immersive music, visuals and stories.",
+  "start_url": "/index1.html",
+  "display": "standalone",
+  "background_color": "#050606",
+  "theme_color": "#050606",
+  "icons": [
+    {"src":"icons/icon.svg","sizes":"any","type":"image/svg+xml"}
+  ]
+}
